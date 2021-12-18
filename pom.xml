@@ -2,20 +2,21 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.5.7</version>
-        <relativePath/>
-    </parent>
 
     <groupId>com.junmoyu</groupId>
     <artifactId>venus-cloud</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
 
     <name>venus-cloud</name>
     <url>https://blog.junmoyu.com</url>
-    <description>Microservice architecture project Venus.</description>
+    <description>Venus 微服务系统</description>
+
+    <modules>
+        <module>venus-starter</module>
+        <module>venus-examples</module>
+        <module>venus-gateway</module>
+    </modules>
 
     <scm>
         <url>https://github.com/moyu-jun/venus-cloud.git</url>
@@ -31,13 +32,14 @@
 
         <!-- Spring Boot & Spring Cloud -->
         <spring-boot.version>2.5.7</spring-boot.version>
-        <spring-cloud.version>2020.0.3</spring-cloud.version>
+        <spring-cloud.version>2020.0.4</spring-cloud.version>
         <spring-cloud-alibaba.verion>2021.1</spring-cloud-alibaba.verion>
-        <spring-boot-alibaba.version>1.0.0</spring-boot-alibaba.version>
+
+        <nacos.version>2.0.3</nacos.version>
+        <spring-boot-admin.version>2.5.4</spring-boot-admin.version>
 
         <prometheus.version>1.7.3</prometheus.version>
         <spring-cloud-gateway.version>3.0.3</spring-cloud-gateway.version>
-        <spring-boot-admin.version>2.4.3</spring-boot-admin.version>
         <spring-cloud-openfeign.version>3.0.3</spring-cloud-openfeign.version>
         <spring-cloud-oauth2.version>2.2.5.RELEASE</spring-cloud-oauth2.version>
 
@@ -88,7 +90,7 @@
 
     <dependencyManagement>
         <dependencies>
-            <!-- 微服务框架 -->
+            <!-- Spring Cloud 微服务依赖配置 -->
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
@@ -96,6 +98,8 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
+            <!-- Spring Cloud Alibaba 微服务框架依赖配置 -->
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-alibaba-dependencies</artifactId>
@@ -103,25 +107,43 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
+            <!-- Spring Boot 依赖配置 -->
             <dependency>
-                <groupId>com.alibaba.cloud</groupId>
-                <artifactId>aliyun-spring-boot-dependencies</artifactId>
-                <version>${spring-boot-alibaba.version}</version>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
 
-            <!-- Spring Boot -->
+            <!-- venus-starter 依赖配置 -->
             <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-starter-gateway</artifactId>
-                <version>${spring-cloud-gateway.version}</version>
+                <groupId>com.junmoyu</groupId>
+                <artifactId>venus-starter-core</artifactId>
+                <version>${project.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>com.junmoyu</groupId>
+                <artifactId>venus-starter-redis</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- Nacos 依赖 -->
+            <dependency>
+                <groupId>com.alibaba.nacos</groupId>
+                <artifactId>nacos-client</artifactId>
+                <version>${nacos.version}</version>
+            </dependency>
+
+            <!-- Spring Boot Admin 依赖 -->
             <dependency>
                 <groupId>de.codecentric</groupId>
                 <artifactId>spring-boot-admin-starter-server</artifactId>
                 <version>${spring-boot-admin.version}</version>
             </dependency>
+
             <!-- openfeign -->
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
@@ -282,6 +304,12 @@
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.google.re2j</groupId>
+                    <artifactId>re2j</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
