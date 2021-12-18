@@ -15,6 +15,7 @@
         <module>venus-starter-redis</module>
         <module>venus-starter-core</module>
         <module>venus-starter-data-scope</module>
+        <module>venus-starter-log</module>
     </modules>
 
     <properties>
