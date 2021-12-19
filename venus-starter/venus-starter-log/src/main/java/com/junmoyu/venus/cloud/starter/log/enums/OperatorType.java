@@ -6,8 +6,7 @@ package com.junmoyu.venus.cloud.starter.log.enums;
  * @author moyu.jun
  * @date 2021/12/18
  */
-public enum OperatorType
-{
+public enum OperatorType {
     /**
      * 其它
      */

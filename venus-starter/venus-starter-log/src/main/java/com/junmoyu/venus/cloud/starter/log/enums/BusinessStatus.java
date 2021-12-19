@@ -6,8 +6,7 @@ package com.junmoyu.venus.cloud.starter.log.enums;
  * @author moyu.jun
  * @date 2021/12/18
  */
-public enum BusinessStatus
-{
+public enum BusinessStatus {
     /**
      * 成功
      */

@@ -16,6 +16,7 @@
         <module>venus-starter</module>
         <module>venus-examples</module>
         <module>venus-gateway</module>
+        <module>venus-modules</module>
     </modules>
 
     <scm>
@@ -127,6 +128,18 @@
             <dependency>
                 <groupId>com.junmoyu</groupId>
                 <artifactId>venus-starter-redis</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.junmoyu</groupId>
+                <artifactId>venus-starter-log</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.junmoyu</groupId>
+                <artifactId>venus-starter-data-scope</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
