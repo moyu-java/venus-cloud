@@ -1,0 +1,3 @@
+# 配置 feign client 的全类名路径， 避免包名不规范无法扫描问题
+com.junmoyu.venus.cloud.starter.feign.VenusFeignAutoConfiguration=\
+  com.junmoyu.venus.cloud.example.jackson.api.RemoteRestService

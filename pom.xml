@@ -37,7 +37,7 @@
         <spring-cloud-alibaba.verion>2021.1</spring-cloud-alibaba.verion>
 
         <nacos.version>2.0.3</nacos.version>
-        <spring-boot-admin.version>2.5.4</spring-boot-admin.version>
+        <spring-boot-admin.version>2.4.3</spring-boot-admin.version>
 
         <prometheus.version>1.7.3</prometheus.version>
         <spring-cloud-gateway.version>3.0.3</spring-cloud-gateway.version>
@@ -122,6 +122,12 @@
             <dependency>
                 <groupId>com.junmoyu</groupId>
                 <artifactId>venus-starter-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.junmoyu</groupId>
+                <artifactId>venus-starter-feign</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

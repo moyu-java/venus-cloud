@@ -1,6 +1,5 @@
-package com.junmoyu.venus.cloud.example.jackson.rest.model;
+package com.junmoyu.venus.cloud.example.jackson.api;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -15,5 +15,6 @@
     <modules>
         <module>venus-example-jackson-rest</module>
         <module>venus-example-jackson-feign</module>
+        <module>venus-example-jackson-api</module>
     </modules>
 </project>
