@@ -16,6 +16,7 @@
         <module>venus-starter-core</module>
         <module>venus-starter-data-scope</module>
         <module>venus-starter-log</module>
+        <module>venus-starter-feign</module>
     </modules>
 
     <properties>

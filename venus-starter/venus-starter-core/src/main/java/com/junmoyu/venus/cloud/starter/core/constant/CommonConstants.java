@@ -13,4 +13,13 @@ public class CommonConstants {
      */
     public static final String TIME_ZONE_ASIA_SHANGHAI = "Asia/Shanghai";
 
+    /**
+     * 微服务之间传递的唯一标识
+     */
+    public static final String VENUS_TRACE_ID = "venus_trace_id";
+
+    /**
+     * 日志链路追踪 id 日志标志
+     */
+    public static final String LOG_TRACE_ID = "log_trace_id";
 }
