@@ -1,2 +1,3 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.junmoyu.venus.cloud.starter.feign.VenusFeignAutoConfiguration
+  com.junmoyu.venus.cloud.starter.feign.VenusFeignAutoConfiguration,\
+  com.junmoyu.venus.cloud.starter.feign.FeignOkHttpConfig

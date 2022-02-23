@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -32,6 +33,7 @@ public class RestDTO implements Serializable {
     private BigInteger bigIntegerParam;
     private BigDecimal bigDecimalParam;
     private LocalDate localDate;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime localDateTime;
     private LocalTime localTime;
     private Date date;
