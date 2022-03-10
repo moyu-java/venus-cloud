@@ -10,7 +10,6 @@
 
     <name>venus-cloud</name>
     <url>https://blog.junmoyu.com</url>
-    <description>Venus 微服务系统</description>
 
     <modules>
         <module>venus-starter</module>
@@ -23,7 +22,7 @@
         <url>https://github.com/moyu-jun/venus-cloud.git</url>
         <connection>scm:git:https://github.com/moyu-jun/venus-cloud</connection>
         <developerConnection>scm:git:git@github.com:moyu-jun/venus-cloud.git</developerConnection>
-        <tag>v${project.version}</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <properties>
@@ -32,11 +31,11 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- Spring Boot & Spring Cloud -->
-        <spring-boot.version>2.5.7</spring-boot.version>
-        <spring-cloud.version>2020.0.4</spring-cloud.version>
-        <spring-cloud-alibaba.verion>2021.1</spring-cloud-alibaba.verion>
+        <spring-boot.version>2.6.3</spring-boot.version>
+        <spring-cloud.version>2021.0.1</spring-cloud.version>
+        <spring-cloud-alibaba.verion>2021.0.1.0</spring-cloud-alibaba.verion>
 
-        <nacos.version>2.0.3</nacos.version>
+        <nacos.version>2.0.4</nacos.version>
         <spring-boot-admin.version>2.4.3</spring-boot-admin.version>
 
         <prometheus.version>1.7.3</prometheus.version>
@@ -91,6 +90,15 @@
 
     <dependencyManagement>
         <dependencies>
+            <!-- Spring Boot 依赖配置 -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
             <!-- Spring Cloud 微服务依赖配置 -->
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
@@ -105,15 +113,6 @@
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-alibaba-dependencies</artifactId>
                 <version>${spring-cloud-alibaba.verion}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <!-- Spring Boot 依赖配置 -->
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring-boot.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -163,37 +162,32 @@
                 <version>${spring-boot-admin.version}</version>
             </dependency>
 
+            <!-- OAuth2 组件 -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-oauth2</artifactId>
+                <version>${spring-cloud-oauth2.version}</version>
+            </dependency>
+
             <!-- openfeign -->
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-starter-openfeign</artifactId>
                 <version>${spring-cloud-openfeign.version}</version>
             </dependency>
+
             <!-- feign-jackson -->
-            <dependency>
-                <groupId>io.github.openfeign</groupId>
-                <artifactId>feign-jackson</artifactId>
-                <version>${feign-core.version}</version>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>io.github.openfeign</groupId>-->
+<!--                <artifactId>feign-jackson</artifactId>-->
+<!--                <version>${feign-core.version}</version>-->
+<!--            </dependency>-->
 
-            <dependency>
-                <groupId>io.micrometer</groupId>
-                <artifactId>micrometer-registry-prometheus</artifactId>
-                <version>${prometheus.version}</version>
-            </dependency>
-
-            <!-- 加密组件 -->
-            <dependency>
-                <groupId>com.github.ulisesbocchio</groupId>
-                <artifactId>jasypt-spring-boot-starter</artifactId>
-                <version>${jasypt-spring-boot.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-starter-oauth2</artifactId>
-                <version>${spring-cloud-oauth2.version}</version>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>io.micrometer</groupId>-->
+<!--                <artifactId>micrometer-registry-prometheus</artifactId>-->
+<!--                <version>${prometheus.version}</version>-->
+<!--            </dependency>-->
 
             <!-- 数据源相关 -->
             <dependency>
@@ -312,13 +306,15 @@
     </dependencyManagement>
 
     <dependencies>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-bootstrap</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.cloud</groupId>-->
+<!--            <artifactId>spring-cloud-starter-bootstrap</artifactId>-->
+<!--        </dependency>-->
+        <!-- 加密组件 -->
         <dependency>
             <groupId>com.github.ulisesbocchio</groupId>
             <artifactId>jasypt-spring-boot-starter</artifactId>
+            <version>${jasypt-spring-boot.version}</version>
         </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>
@@ -329,6 +325,10 @@
                     <artifactId>re2j</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -423,13 +423,6 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>versions-maven-plugin</artifactId>
                 <version>${versions-maven-plugin.version}</version>
-            </plugin>
-
-            <!-- 加解密插件 -->
-            <plugin>
-                <groupId>com.github.ulisesbocchio</groupId>
-                <artifactId>jasypt-maven-plugin</artifactId>
-                <version>${jasypt-spring-boot.version}</version>
             </plugin>
         </plugins>
     </build>
