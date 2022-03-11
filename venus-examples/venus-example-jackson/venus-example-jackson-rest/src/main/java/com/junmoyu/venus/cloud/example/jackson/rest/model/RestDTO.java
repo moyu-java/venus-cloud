@@ -32,8 +32,8 @@ public class RestDTO implements Serializable {
     private Long longParam;
     private BigInteger bigIntegerParam;
     private BigDecimal bigDecimalParam;
-    private LocalDate localDate;
-    private LocalDateTime localDateTime;
-    private LocalTime localTime;
+//    private LocalDate localDate;
+//    private LocalDateTime localDateTime;
+//    private LocalTime localTime;
     private Date date;
 }

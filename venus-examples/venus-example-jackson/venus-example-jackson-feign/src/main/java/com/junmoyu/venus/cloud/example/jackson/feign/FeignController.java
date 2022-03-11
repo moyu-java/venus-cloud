@@ -39,10 +39,16 @@ public class FeignController {
     }
 
     @GetMapping("/request/param")
-    public Response<RestDTO> getDate(@RequestParam LocalDate date, @RequestParam LocalDateTime dateTime, @RequestParam Date originalDate) {
+    public Response<RestDTO> getDate(@RequestParam("date") LocalDate date, @RequestParam("dateTime") LocalDateTime dateTime,
+                                     @RequestParam("originalDate") Date originalDate) {
         log.info(date.toString());
         log.info(dateTime.toString());
         log.info(originalDate.toString());
         return remoteRestService.getDate(date, dateTime, originalDate);
+    }
+    @GetMapping("/request/param/date")
+    public Response<RestDTO> getDate(@RequestParam("originalDate") Date originalDate) {
+        log.info(originalDate.toString());
+        return remoteRestService.getDate(originalDate);
     }
 }

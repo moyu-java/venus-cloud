@@ -31,7 +31,7 @@ public class VenusFeignFallback<T> implements MethodInterceptor {
     @Override
     public Object intercept(Object o, Method method, Object[] objects, MethodProxy methodProxy) throws Throwable {
         String errorMessage = cause.getMessage();
-        log.error("ShiduFeignFallback:[{}.{}] serviceId:[{}] message:[{}]", targetType.getName(), method.getName(), targetName, errorMessage);
+        log.error("VenusFeignFallback:[{}.{}] serviceId:[{}] message:[{}]", targetType.getName(), method.getName(), targetName, errorMessage);
         Class<?> returnType = method.getReturnType();
         // 暂时不支持 flux，rx，异步等，返回值不是 Response，直接返回 null。
         if (Response.class != returnType) {

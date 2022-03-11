@@ -4,7 +4,6 @@ import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.DateUtil;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
@@ -13,6 +12,7 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
+import lombok.NonNull;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -47,7 +47,7 @@ public class JacksonConfig {
     public Converter<String, LocalDate> localDateConverter() {
         return new Converter<String, LocalDate>() {
             @Override
-            public LocalDate convert(String source) {
+            public LocalDate convert(@NonNull String source) {
                 return LocalDate.parse(source, DateTimeFormatter.ofPattern(DatePattern.NORM_DATE_PATTERN));
             }
         };
@@ -63,7 +63,7 @@ public class JacksonConfig {
     public Converter<String, LocalTime> localTimeConverter() {
         return new Converter<String, LocalTime>() {
             @Override
-            public LocalTime convert(String source) {
+            public LocalTime convert(@NonNull String source) {
                 return LocalTime.parse(source, DateTimeFormatter.ofPattern(DatePattern.NORM_TIME_PATTERN));
             }
         };
@@ -79,7 +79,7 @@ public class JacksonConfig {
     public Converter<String, LocalDateTime> localDateTimeConverter() {
         return new Converter<String, LocalDateTime>() {
             @Override
-            public LocalDateTime convert(String source) {
+            public LocalDateTime convert(@NonNull String source) {
                 return LocalDateTime.parse(source, DateTimeFormatter.ofPattern(DatePattern.NORM_DATETIME_PATTERN));
             }
         };
@@ -95,14 +95,14 @@ public class JacksonConfig {
     public Converter<String, Date> dateConverter() {
         return new Converter<String, Date>() {
             @Override
-            public Date convert(String source) {
+            public Date convert(@NonNull String source) {
                 return DateUtil.parse(source.trim());
             }
         };
     }
 
     /**
-     * Json序列化和反序列化转换器，用于转换Post请求体中的json以及将我们的对象序列化为返回响应的json
+     * Json 序列化和反序列化转换器，用于转换 Post 请求体中的 json 以及将我们的对象序列化为返回响应的 json
      */
     @Bean
     public ObjectMapper objectMapper() {
@@ -131,7 +131,7 @@ public class JacksonConfig {
         // Date 类型的反序列化
         javaTimeModule.addDeserializer(Date.class, new JsonDeserializer<Date>() {
             @Override
-            public Date deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+            public Date deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
                 return DateUtil.parse(jsonParser.getText());
             }
         });
