@@ -1,119 +1,70 @@
 package com.junmoyu.venus.cloud.starter.core.model.dto;
 
-import com.junmoyu.venus.cloud.starter.core.util.SqlUtils;
-import org.apache.commons.lang3.StringUtils;
+import java.io.Serializable;
+import java.util.Objects;
 
 /**
- * 分页查询请求参数
+ * 基础分页查询对象
  *
  * @author moyu.jun
- * @date 2021/12/18
+ * @date 2022/3/11
  */
-public class PageQuery extends Query {
+public class PageQuery implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
-    public static final String ASC = "ASC";
-
-    public static final String DESC = "DESC";
+    private static final long serialVersionUID = 437062142215284866L;
 
     private static final int DEFAULT_PAGE_SIZE = 10;
 
     private static final int MAX_PAGE_SIZE = 100;
 
-    private int pageSize = DEFAULT_PAGE_SIZE;
+    private int currentPage;
 
-    private int pageNum;
-
-    private String orderBy;
-
-    private String orderDirection = DESC;
-
-    private String groupBy;
-
-    private boolean needTotalCount = true;
+    private int pageSize;
 
     public PageQuery() {
+        this.currentPage = 1;
+        this.pageSize = DEFAULT_PAGE_SIZE;
     }
 
-    public int getPageNum() {
-        if (pageNum < 1) {
-            return 1;
-        }
-        return pageNum;
+    public PageQuery(final Integer currentPage, final Integer pageSize) {
+        setCurrentPage(currentPage);
+        setPageSize(pageSize);
     }
 
-    public PageQuery setPageNum(int pageNum) {
-        this.pageNum = pageNum;
-        return this;
+    public int getCurrentPage() {
+        return currentPage;
     }
 
     public int getPageSize() {
-        if (pageSize < 1) {
-            pageSize = DEFAULT_PAGE_SIZE;
-        }
-        if (pageSize > MAX_PAGE_SIZE) {
-            pageSize = MAX_PAGE_SIZE;
-        }
         return pageSize;
     }
 
-    public PageQuery setPageSize(int pageSize) {
-        this.pageSize = pageSize;
-        return this;
-    }
-
     public int getOffset() {
-        return (getPageNum() - 1) * getPageSize();
+        return (this.currentPage - 1) * this.pageSize;
     }
 
-    public String getOrderBy() {
-        if (StringUtils.isBlank(orderBy)) {
-            return orderBy;
+    public void setCurrentPage(final Integer currentPage) {
+        this.currentPage = Objects.isNull(currentPage) || currentPage <= 0 ? 1 : currentPage;
+    }
+
+    public void setPageSize(final Integer pageSize) {
+        this.pageSize = Objects.isNull(pageSize) || pageSize <= 0 || pageSize > MAX_PAGE_SIZE ? DEFAULT_PAGE_SIZE : pageSize;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
         }
-        if (!SqlUtils.isValidOrderBySql(orderBy)) {
-            // orderBy 有 SQL 注入风险
-            orderBy = null;
+        if (!(o instanceof PageQuery)) {
+            return false;
         }
-        return orderBy;
+        PageQuery that = (PageQuery) o;
+        return currentPage == that.currentPage && pageSize == that.pageSize;
     }
 
-    public PageQuery setOrderBy(String orderBy) {
-        this.orderBy = orderBy;
-        return this;
-    }
-
-    public String getOrderDirection() {
-        return orderDirection;
-    }
-
-    public PageQuery setOrderDirection(String orderDirection) {
-        if (ASC.equalsIgnoreCase(orderDirection) || DESC.equalsIgnoreCase(orderDirection)) {
-            this.orderDirection = orderDirection;
-        }
-        return this;
-    }
-
-    public String getGroupBy() {
-        if (StringUtils.isBlank(groupBy)) {
-            return groupBy;
-        }
-        if (!SqlUtils.isValidOrderBySql(groupBy)) {
-            // groupBy 有 SQL 注入风险
-            groupBy = null;
-        }
-        return groupBy;
-    }
-
-    public void setGroupBy(String groupBy) {
-        this.groupBy = groupBy;
-    }
-
-    public boolean isNeedTotalCount() {
-        return needTotalCount;
-    }
-
-    public void setNeedTotalCount(boolean needTotalCount) {
-        this.needTotalCount = needTotalCount;
+    @Override
+    public int hashCode() {
+        return Objects.hash(currentPage, pageSize);
     }
 }

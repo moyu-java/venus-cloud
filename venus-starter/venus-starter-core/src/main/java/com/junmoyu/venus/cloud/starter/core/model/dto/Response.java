@@ -48,6 +48,10 @@ public class Response<T> implements Serializable {
         return failure(ResponseCode.SYSTEM);
     }
 
+    public static <T> Response<T> failure(String message) {
+        return failure(ResponseCode.SYSTEM.getCode(), message);
+    }
+
     public static <T> Response<T> failure(ResponseCode responseCode) {
         return failure(responseCode.getCode(), responseCode.getMessage());
     }

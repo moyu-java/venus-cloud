@@ -1,10 +1,7 @@
 package com.junmoyu.venus.cloud.starter.core.model.dto;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * 分页返回结果
@@ -14,74 +11,86 @@ import java.util.List;
  */
 public class PageResult<T> implements Serializable {
 
-    private int pageNum = 1;
+    private int currentPage;
 
-    private int pageSize = 10;
+    private int pageSize;
 
-    private int total = 0;
+    private int totalCount;
 
-    private Collection<T> data;
+    private Collection<T> list;
 
     public PageResult() {
     }
 
-    public PageResult(int pageNum, int pageSize, int total) {
-        this.pageNum = pageNum;
+    public PageResult(final int currentPage, final int pageSize, final int totalCount) {
+        this.currentPage = currentPage;
         this.pageSize = pageSize;
-        this.total = total;
+        this.totalCount = totalCount;
     }
 
-    public PageResult(int pageNum, int pageSize, int total, Collection<T> data) {
-        this.pageNum = pageNum;
-        this.pageSize = pageSize;
-        this.total = total;
-        this.data = data;
+    public PageResult(final int currentPage, final int pageSize, final int totalCount, final Collection<T> list) {
+        this(currentPage, pageSize, totalCount);
+        this.list = list;
+    }
+
+    public int getCurrentPage() {
+        return currentPage;
     }
 
     public int getPageSize() {
-        if (pageSize < 1) {
-            return 1;
-        }
         return pageSize;
     }
 
-    public void setPageSize(int pageSize) {
-        if (pageSize < 1) {
-            this.pageSize = 1;
-        } else {
-            this.pageSize = pageSize;
-        }
+    public int getTotalPage() {
+        return this.totalCount % this.pageSize == 0 ? this.totalCount
+                / this.pageSize : (this.totalCount / this.pageSize) + 1;
     }
 
-    public int getPageNum() {
-        if (pageNum < 1) {
-            return 1;
-        }
-        return pageNum;
+    public int getTotalCount() {
+        return totalCount;
     }
 
-    public void setPageNum(int pageNum) {
-        if (pageNum < 1) {
-            this.pageNum = 1;
-        } else {
-            this.pageNum = pageNum;
-        }
+    public List<T> getList() {
+        return null == list ? Collections.emptyList() : new ArrayList<>(list);
     }
 
-    public List<T> getData() {
-        return null == data ? Collections.emptyList() : new ArrayList<>(data);
+    public void setCurrentPage(final int currentPage) {
+        this.currentPage = currentPage <= 0 ? 1 : currentPage;
     }
 
-    public void setData(Collection<T> data) {
-        this.data = data;
+    public void setPageSize(final int pageSize) {
+        this.pageSize = pageSize <= 0 ? 10 : pageSize;
     }
 
-    public int getTotalPages() {
-        return this.total % this.pageSize == 0 ? this.total
-                / this.pageSize : (this.total / this.pageSize) + 1;
+    public void setTotalCount(final int totalCount) {
+        this.totalCount = totalCount;
+    }
+
+    public void setList(Collection<T> list) {
+        this.list = list;
     }
 
     public boolean isEmpty() {
-        return data == null || data.isEmpty();
+        return list == null || list.isEmpty();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof PageResult)) {
+            return false;
+        }
+        PageResult<?> that = (PageResult<?>) o;
+        return currentPage == that.currentPage
+                && pageSize == that.pageSize
+                && totalCount == that.totalCount
+                && Objects.equals(list, that.list);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(currentPage, pageSize, totalCount, list);
     }
 }

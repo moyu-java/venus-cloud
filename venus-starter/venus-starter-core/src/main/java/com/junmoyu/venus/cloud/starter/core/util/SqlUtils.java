@@ -1,6 +1,6 @@
 package com.junmoyu.venus.cloud.starter.core.util;
 
-import com.junmoyu.venus.cloud.starter.core.exception.BizException;
+import com.junmoyu.venus.cloud.starter.core.exception.VenusException;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -17,18 +17,24 @@ public class SqlUtils {
 
     /**
      * 检查字符，防止注入绕过
+     *
+     * @param value 字段名
+     * @return 字段名
      */
     public static String escapeOrderBySql(String value) {
-        if (StringUtils.isNotEmpty(value) && !isValidOrderBySql(value)) {
-            throw new BizException("参数不符合规范，不能进行查询");
+        if (StringUtils.isNotEmpty(value) && !isValidSqlColumn(value)) {
+            throw new VenusException("参数不符合规范，不能进行查询");
         }
         return value;
     }
 
     /**
-     * 验证 order by 语法是否符合规范
+     * 验证SQL字段是否符合规范
+     *
+     * @param value 排序字段
+     * @return true:有效字段；false:异常字段
      */
-    public static boolean isValidOrderBySql(String value) {
+    public static boolean isValidSqlColumn(String value) {
         return value.matches(SQL_PATTERN);
     }
 }
