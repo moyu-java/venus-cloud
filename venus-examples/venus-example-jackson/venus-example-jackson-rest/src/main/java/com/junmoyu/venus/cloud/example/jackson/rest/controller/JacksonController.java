@@ -52,7 +52,7 @@ public class JacksonController {
         return RestDTO.builder()
                 .strParam("string param.")
                 .intParam(99)
-                .longParam(1222233333333333333L)
+                .longParam(9223372036854775807L)
                 .booleanParam(true)
                 .bigIntegerParam(new BigInteger("1222233333333333333"))
                 .bigDecimalParam(new BigDecimal("0.000001"))

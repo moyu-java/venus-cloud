@@ -29,7 +29,8 @@ public class FeignController {
     @GetMapping("/params")
     public Response<RestDTO> test1(RestDTO query) {
         log.info(query.toString());
-        return remoteRestService.test1(query);
+        Response<RestDTO> restDTOResponse = remoteRestService.test1(query);
+        return restDTOResponse;
     }
 
     @GetMapping("/body")
