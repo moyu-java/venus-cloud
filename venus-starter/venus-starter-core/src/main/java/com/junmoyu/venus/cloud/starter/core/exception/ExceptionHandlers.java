@@ -9,9 +9,13 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.yaml.snakeyaml.constructor.DuplicateKeyException;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -38,11 +42,11 @@ public class ExceptionHandlers {
         return Response.failure(message);
     }
 
-//    @ExceptionHandler(DuplicateKeyException.class)
-//    protected Response<String> handleDuplicateKeyException(final DuplicateKeyException exception) {
-//        log.error("duplicate key exception ", exception);
-//        return Response.failure("unique index conflict, please enter again");
-//    }
+    @ExceptionHandler(DuplicateKeyException.class)
+    protected Response<String> handleDuplicateKeyException(final DuplicateKeyException exception) {
+        log.error("duplicate key exception ", exception);
+        return Response.failure("unique index conflict, please enter again");
+    }
 
 //    @ExceptionHandler(UnauthorizedException.class)
 //    protected Response<String> handleUnauthorizedException(final UnauthorizedException exception) {
@@ -70,9 +74,7 @@ public class ExceptionHandlers {
     protected Response<String> handleMethodArgumentNotValidException(final MethodArgumentNotValidException e) {
         log.warn("method argument not valid", e);
         BindingResult bindingResult = e.getBindingResult();
-        String errorMsg = bindingResult.getFieldErrors().stream()
-                .map(f -> f.getField().concat(": ").concat(Optional.ofNullable(f.getDefaultMessage()).orElse("")))
-                .collect(Collectors.joining("| "));
+        String errorMsg = bindingResult.getFieldErrors().stream().map(f -> f.getField().concat(": ").concat(Optional.ofNullable(f.getDefaultMessage()).orElse(""))).collect(Collectors.joining("| "));
         return Response.failure(String.format("Request error! invalid argument [%s]", errorMsg));
     }
 
@@ -88,14 +90,12 @@ public class ExceptionHandlers {
         return Response.failure(String.format("%s should be of type %s", e.getName(), Objects.requireNonNull(e.getRequiredType()).getName()));
     }
 
-//    @ExceptionHandler(ConstraintViolationException.class)
-//    protected Response<String> handleConstraintViolationException(final ConstraintViolationException e) {
-//        log.warn("constraint violation exception", e);
-//        Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
-//        return Response.failure(violations.stream()
-//                .map(v -> v.getPropertyPath().toString().concat(": ").concat(v.getMessage()))
-//                .collect(Collectors.joining("| ")));
-//    }
+    @ExceptionHandler(ConstraintViolationException.class)
+    protected Response<String> handleConstraintViolationException(final ConstraintViolationException e) {
+        log.warn("constraint violation exception", e);
+        Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
+        return Response.failure(violations.stream().map(v -> v.getPropertyPath().toString().concat(": ").concat(v.getMessage())).collect(Collectors.joining("| ")));
+    }
 
     @ExceptionHandler(VenusException.class)
     protected Response<String> handleVenusException(final VenusException exception) {

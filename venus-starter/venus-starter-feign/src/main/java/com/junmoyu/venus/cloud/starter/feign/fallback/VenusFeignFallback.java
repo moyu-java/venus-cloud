@@ -1,7 +1,6 @@
 package com.junmoyu.venus.cloud.starter.feign.fallback;
 
 import com.junmoyu.venus.cloud.starter.core.model.dto.Response;
-import com.junmoyu.venus.cloud.starter.core.model.dto.ResponseCode;
 import feign.FeignException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -39,15 +38,15 @@ public class VenusFeignFallback<T> implements MethodInterceptor {
         }
         // 非 FeignException
         if (!(cause instanceof FeignException)) {
-            return Response.failure(ResponseCode.SYSTEM, errorMessage);
+            return Response.failure(errorMessage);
         }
         FeignException exception = (FeignException) cause;
         String content = exception.contentUTF8();
         // 如果返回的数据为空
         if (ObjectUtils.isEmpty(content)) {
-            return Response.failure(ResponseCode.SYSTEM, errorMessage);
+            return Response.failure(errorMessage);
         }
-        return Response.failure(ResponseCode.SYSTEM, content);
+        return Response.failure(content);
     }
 
     @Override
