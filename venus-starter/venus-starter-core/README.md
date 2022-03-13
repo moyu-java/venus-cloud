@@ -39,13 +39,16 @@
 
 > 结论：针对测试结果，建议项目全局使用`Date`类型或`Long`类型的时间戳进行时间参数的传递。
 
-Feign 在处理 `GET` 请求时，不允许使用 `Request Body`，且`URL拼接`或`@RequestParam("value")`会直接调用对象的`toString()`方法转为字符串进行参数传递。而`LocalDateTime`的`toString()`方法如下：
+Feign 在处理 `GET` 请求时，不允许使用 `Request Body`，且`URL拼接`或`@RequestParam("value")`会直接调用对象的`toString()`
+方法转为字符串进行参数传递。而`LocalDateTime`的`toString()`方法如下：
 
 ```java
+class LocalDateTime {
     @Override
     public String toString() {
         return date.toString() + 'T' + time.toString();
     }
+}
 ```
 
 所以会导致 Jackson 解析错误。测试代码在 `venus-example-jackson` 模块内。
