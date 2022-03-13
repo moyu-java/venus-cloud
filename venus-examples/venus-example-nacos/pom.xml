@@ -3,20 +3,16 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <modules>
+        <module>venus-example-nacos-config</module>
+    </modules>
     <parent>
-        <artifactId>venus-cloud</artifactId>
+        <artifactId>venus-examples</artifactId>
         <groupId>com.junmoyu</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>venus-examples</artifactId>
+    <artifactId>venus-example-nacos</artifactId>
     <packaging>pom</packaging>
 
-    <modules>
-        <module>venus-example-redis</module>
-        <module>venus-example-single-boot</module>
-        <module>venus-example-jackson</module>
-        <module>venus-example-jasypt</module>
-        <module>venus-example-nacos</module>
-    </modules>
 </project>

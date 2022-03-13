@@ -24,7 +24,7 @@ public class FeignOkHttpConfig {
         return new okhttp3.OkHttpClient.Builder()
                 // 设置连接超时
                 .connectTimeout(10, TimeUnit.SECONDS)
-                //设置读超时
+                // 设置读超时
                 .readTimeout(10, TimeUnit.SECONDS)
                 // 设置写超时
                 .writeTimeout(10, TimeUnit.SECONDS)

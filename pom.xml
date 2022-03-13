@@ -35,7 +35,7 @@
         <spring-cloud.version>2021.0.1</spring-cloud.version>
         <spring-cloud-alibaba.verion>2021.0.1.0</spring-cloud-alibaba.verion>
 
-        <nacos.version>2.0.4</nacos.version>
+<!--        <nacos.version>2.0.4</nacos.version>-->
         <spring-boot-admin.version>2.4.3</spring-boot-admin.version>
 
         <prometheus.version>1.7.3</prometheus.version>
@@ -43,7 +43,7 @@
         <spring-cloud-openfeign.version>3.0.3</spring-cloud-openfeign.version>
         <spring-cloud-oauth2.version>2.2.5.RELEASE</spring-cloud-oauth2.version>
 
-        <jasypt-spring-boot.version>3.0.3</jasypt-spring-boot.version>
+        <jasypt-spring-boot.version>3.0.4</jasypt-spring-boot.version>
 
         <!-- 数据源相关 -->
         <spring-data-elasticsearch.version>4.1.12</spring-data-elasticsearch.version>
@@ -149,11 +149,11 @@
             </dependency>
 
             <!-- Nacos 依赖 -->
-            <dependency>
-                <groupId>com.alibaba.nacos</groupId>
-                <artifactId>nacos-client</artifactId>
-                <version>${nacos.version}</version>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>com.alibaba.nacos</groupId>-->
+<!--                <artifactId>nacos-client</artifactId>-->
+<!--                <version>${nacos.version}</version>-->
+<!--            </dependency>-->
 
             <!-- Spring Boot Admin 依赖 -->
             <dependency>

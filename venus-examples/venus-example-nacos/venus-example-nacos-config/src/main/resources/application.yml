@@ -1,0 +1,19 @@
+server:
+  port: 8888
+spring:
+  application:
+    name: venus-example-nacos-config
+  cloud:
+    nacos:
+      config:
+        server-addr: 127.0.0.1:8848
+        username: nacos
+        password: nacos
+        namespace: b0a0e191-bc44-4173-b082-37e985bd8b9e
+        group: DEFAULT_GROUP
+  config:
+    import:
+      - optional:nacos:test.yml?group=DEFAULT_GROUP02  # 监听 DEFAULT_GROUP:test.yml
+      - optional:nacos:test01.yml?group=DEFAULT_GROUP # 覆盖默认 group，监听 group_01:test01.yml
+      - optional:nacos:test02.yml?group=DEFAULT_GROUP&refreshEnabled=false # 不开启动态刷新
+      - nacos:test03.yml?group=DEFAULT_GROUP&refreshEnabled=true
