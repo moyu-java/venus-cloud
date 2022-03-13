@@ -19,7 +19,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * ControllerMethodResolver.
+ * 全局统一异常捕获处理
  *
  * @author moyu.jun
  * @date 2022/3/11
@@ -57,7 +57,13 @@ public class ExceptionHandlers {
     @ExceptionHandler(NullPointerException.class)
     protected Response<String> handleNullPointException(final NullPointerException exception) {
         log.error("null pointer exception ", exception);
-        return Response.failure("not found exception");
+        return Response.failure("null pointer exception");
+    }
+
+    @ExceptionHandler(ClassNotFoundException.class)
+    protected Response<String> handleClassNotFoundException(final ClassNotFoundException e) {
+        log.warn("class not found exception", e);
+        return Response.failure("class not found exception");
     }
 
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
