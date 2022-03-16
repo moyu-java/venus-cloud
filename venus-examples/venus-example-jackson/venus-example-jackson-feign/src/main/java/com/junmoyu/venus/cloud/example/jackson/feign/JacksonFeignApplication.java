@@ -1,17 +1,17 @@
-package com.junmoyu.venus.cloud.example.jackson.rest;
+package com.junmoyu.venus.cloud.example.jackson.feign;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
 /**
- * Jackson Restful Api 示例启动器
- *
  * @author moyu.jun
  * @date 2021/12/25
  */
+@EnableFeignClients
 @SpringBootApplication
-public class JacksonRestBootStrap {
+public class JacksonFeignApplication {
     public static void main(String[] args) {
-        SpringApplication.run(JacksonRestBootStrap.class, args);
+        SpringApplication.run(JacksonFeignApplication.class, args);
     }
 }

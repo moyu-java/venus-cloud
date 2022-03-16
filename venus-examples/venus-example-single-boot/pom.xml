@@ -50,7 +50,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>${spring-boot.version}</version>
                 <configuration>
-                    <mainClass>com.junmoyu.venus.cloud.example.single.boot.SingleBootstrap</mainClass>
+                    <mainClass>com.junmoyu.venus.cloud.example.single.boot.SingleBootApplication</mainClass>
                     <executable>true</executable>
                 </configuration>
                 <executions>
